@@ -1,0 +1,234 @@
+====================Volatile And AtomicInteger========================
+
+Volatile - for visibility
+AtmocInteger,Long - for Counters
+Atomic refrences - used in most algos in JDK for non blocking calls
+incrementAndGet(incr plus get the value)
+5.AddAndGet(Add and get the delta between added and old value);
+6.compareAndSet(int expected, int newVal) -> checks if curren value of object is what is excpted
+and if it is so, only then sets the new value to it - used in many JDK internal algo
+
+================Thread Local=========================================
+
+Say there are two threads that perform a task of getting some data for a partocular user, and print it.
+This print is done by help of  a different obj like DataFormatter, which is created everytime. 
+
+So if a 1000 users r there, 1000 objs - not desired.
+Making formatter obj - Global - but mltiple threads access it - if sync, then lock and performance will be hit
+- not desirable.
+Thats when ThreadLocal variable comes to rescue. Each thread has its local variable, so if there 
+are 10 threads to which 1000 tasks are assigned even then ull have 10 objects only which are
+internal to these threads leading to safety, perf improvement and less memory footprint
+
+ThreadLocal is used in popular frameworks like Spring - RequestCpntextHolder - when multiple requests
+come in and you do get context, each thread gets data corresponding to its context. For example,
+2 diff users signing in, that is 2 diffrnt threads are served by tomcat, then these 2 threads
+get their own details.
+
+initValue(){initial value}, get()- used by threads to get value fo the object later on,
+set()- if first time value has to be set dynamically.
+
+======= Concurrency vs Parallelism=================================
+Say you create two threads for two tasks insie your program, on a quad core processor. These two tasks are, say, used to calculate
+BMI based on weight and age. So if you input weight and age, they calculate, two tasks are independent of each other.
+Thus scheduler can decide to schedule three threads - the Main one, and the two threads running these two
+tasks to run on each core(total 3/4). So all 3 are running parallelly - hence parallelism.
+
+Now say theres a shared variable( like available tickets) to be updated by two threads which do the task of booking a ticket and
+decreasing the count. In such case, Also assume theres only one core in the system and scheduler uses its own non deterministc
+algorithm to give space to each thread, like thread 1 for few seconds and thread 2 for few second
+1. if in this available time, thread one does the entire job of checking no. of available tickets, booking ticket and updating
+the ticket count - all good.
+2. if thread1 could only check, available tickets the first time it got opportunity, and then same happens with seocnd thread,
+they both see available tickets at 10, say, then again they both get time only to book tikcets in next cycle,
+then again they both update ticket count as 9, which is wrong. In such case, its better to use sync tools, or allow locks.
+  - thread one acquired lock to access the shared resource, here, available tickets and then releases the lock only after it
+  books tikcet and releases count.
+  - so when thread two gets access in between, it sees that thread1 already has the lock and has to wait.
+3. Essentially dealing with multiple things at once is concurrency.
+4. Divide deq steps to smaller steps and use threads for these to speeden up
+4. Use synchronous tools like lock, and concurrent data strctures to deal with shared resources or when inter thread comm is needed
+in parallelism
+
+================= Java Memory Model ===================================
+
+a=3; // load a, set to 3
+b=2; // load b, set to 2
+a=a+1// load a again - perf hit. Can be improved by
+
+a=3; // loads a, sets to 3
+a=a+1; sets 3 to 4, no loading
+b=2
+
+// These changes are done by compiler or JVM/CPU etc to get more perf
+
+Core1, Core2, Core3, Core4
+Reg1,  Reg2,  Reg3,  Reg4
+L1,    L1,    L1,    L1
+L2        ,   L2         (Shared by 3 cores)
+L3---------------------- (Shared by all cores)
+RAM--------------------- (Shared by all cores)
+
+Farther memory from core -> more latency but more size and cheaper
+
+volatile - makes sure that changed variable is pushed to shared cache - visibility problem is solved.
+
+JVM - enforces rules for fields to be visible, so that even if one prog is run in another jvm, same memory model is used
+and visibility issue never arises.
+
+happened before relationship: Java memory moel ensures that variables initialized before a volatile variable and any further updates to them
+are avaiable later too . For example;
+
+class Dummy{
+
+int a =0;b=0;c=0;
+volatile int x=1;
+
+write(){ a=1; b =1; c=1; x= 10} read(){y=x//10, z=a// 1, p=b//1 , q=c //2}
+}
+this visibility principle is applicable even for synchronized, locks, concurrent collections, Thread ops, final fields
+
+the same above can be obtained by using synchronized keyword too
+
+class Dummy{
+
+int a =0;b=0;c=0;
+ int x=1;
+
+write(){ a=1; b =1; c=1; synchronized(this){ x= 10}} read(){ synchronized(this){y=x//10}, z=a// 1, p=b//1 , q=c //2}
+}
+// same bheavior as above 
+sunchronized should be done on same obj for writing n reading, lest it wil nt work 
+its always better to have all variables in synchronized block, instead of relying on jVM for happens before
+class Dummy{
+lock = new ReentrantLock();
+int a =0;b=0;c=0;
+ int x=1;
+
+write(){lock.lock(); a=1; b =1; c=1; x= 10 ;lock.unlock()} 
+read(){ lock.lock()y=x//10, z=a// 1, p=b//1 , q=c //2 lock.lock()}
+} JVM makes sure that variables r updated
+
+=============================Executor Service=================================================
+in Java 1 thread is 1 OS thread.
+you can assign 1 task to 1 thread.
+But if u need 1000 tasks to be done, is it ideal to create 1000 threads? No.
+You can create 10 threads and assign these 1000 tasks to those 10 threads. That is better.
+
+What is the ideal threadpool size? Theres no starught ans to this but its better to keep it
+<= numer of cores in CPU , so that no time slicing happens for threads and all 4 threads can keep
+running continuously, this mainly applies to CPU intensive tasks like crypto generation etc.
+
+BUT, if 4 cores and 2 cores are busy with other apps, ur app will not get access to these two, so in that case
+even if your app is cpu intensive it makes better sense to keep thread count to 2
+
+if your app is IO intensive, fetch data from an eternal sevr API, and then do prcessing then , all threads might go to waiting state
+if you keep low thread count. In such cases it makes better sense to keep the thread count more than the cpu cores
+count. but too many threads in waiitng state will consume more memmory. So need to come up with a judicious number
+
+==============================Thread Pools===========================
+
+FixedThreadPool(10) -> creates 10 fixed threads - uses blocking q to keep track of tasks
+CachedThread -> doesnt take number of threads -> it has synchronous queue ->  takes only 1 item ->
+that is the queue holds 1 task and it sees if there are ny available threads and assigns this task to them.
+if no threads are available then it will create a new thread. there is a high probability that threads could accumulate,
+sp it also checls tht if a thread has been idle for more than(no tasks to exec), ir kills the thread
+
+ExecutorService es = Executors.newCachedThreadPool()-> no args, u dont specify number of threads
+
+Sxheduled thread pool- u mention number of threads and also delay if any. Three types of delay, 
+1. delay in starting a task
+2. execute tasks repeatedly fter fixd time
+3. execute tasks
+
+SingleThread Executor:: Only 1 thread in pool. Takes 1 task from queue n exceutes it. Recreates task if got killed in between
+
+Lifecycle of thread pools, whenever we call any of the threadpools it internally calls
+new ThreadPoolExecutor(int core pool size, int max pool size,keepAlive time, Queue q, thread factry, handler(what to 
+do if a task is rejected) ){
+
+core pool size - intial size with which threads r created
+current pool size - if required, threads r added , or removed if have been idle
+max pool size - threads cant go beyond this time
+keep alive time - time until which the thread can stay alive, and aftr which thread is killed, but number of threads
+will never go below core pool size.
+ fixed thread pool - core pool size - contsrycr arg, max pool size - constrctr arg, keep alive time 0ms
+ single thread pool - corepoolsize=max poolsize = 1, keep alive time 0ms
+ cached thread pool - core pool size -0, max pool size - int max, keep alive 60ms
+ scheduled thread pool - core poool size - const, max pool size - int max, keep aive 60ms
+ allowCoreThreadTimeOut(default boolean) -> allows to reduce core pool size only if this is true, by def it is false
+ 
+ Fixed and Sceduled use LinkedBlockingQueue -> to keep on adding tasks if all threads are busy. since queue is never full, no new
+ threads can be created
+ Cached Thread pool - synchrnousQueue which holds only 1 item because number of threads can be many and each task is taken as it comes
+ Shecduled Thread Pool - DelayQueue - tasks are not stored in order they come but on when they need to be executed.
+ Custom - ArrayBlockingQ - Bounded qeueue to store tasks and wen queue gets full new thread is created
+ 
+ In bounded Queue, thread pool cant tae new tasks and in such cases it rejects new tasks
+ 1. AbortPolicy - it outright rejects new tasks with RunTime Exception - RejectedExecutorExcwption
+ 2. DiscardPolicy - it silently discards the new task
+ 3. DiscardOldest - discards olldest task
+ 4. Caller runs policy - it asks the caller that submitted the new task itself to run and the caller will be excuting the task
+ and will have no time to subit new task
+ 
+ Custom:
+ 
+ ExecutorService es = new TreadPool(10,100,60,s,new ArrayBlockingQueue,new CustomRejectedHandler());
+ 
+ class CustomRejectedHandler implements RejectedExecutionHandler(){
+ @Override
+ public void rejectedExecution(Runnable r, ThreadPoolExecutor e){
+ }
+ 
+ service.shutdown() -> shutdown is initiaited - will not accept new tasks bt will finish tasks in queue and currently running
+ tasks
+ service.submit(task) -> will result in rejected exception because shutdown is called
+ service.isShutDown - will return true because shutdown is initiated.
+ service.isShutDownNow - will exceute currently running tasks and will give back a list of runnables
+ service.awaitTermination(timeoit) - blocks till all r complete/timeout like join, usually called aftr a shutdown
+ best example:
+ es.shutdown();
+ if(!es.awaitTermination(10, TimeUnit.Second)){
+ es.shutdownNow();
+ }
+ ex.submit takes only Runnable, ex.execute takes both submit and callable and returns a Future<ObjectType>.
+ Future.get() is a blocking call. -- write code for this. Future is a place holder for a submitted task, which gets populated
+ once task is done and sets the return value in Future object
+ future.cancel(boolean interruptThread) -> if task is not yet picked up by a thread, it will be cancelled, else depending on
+ boolean interruptThread attempt will be made to interrupt the thread running the task
+ future.isCancelled()-> to check if task is cancelled
+ future.isDone()->  task is completed/any oter state except running
+ 
+ 
+ }
+ 
+ Data Locality - flushing old thread data and addng ne wthread data whenever thread switch happens
+ 
+ Fututre / In general IO intensive ops are all blocking calls.
+ 
+ Say a rest call to get employee details from id, then againsome rest call based on this data received and so on.
+ All are blocking calls and so many cpu cycles r ideal.
+ 
+ CompletableFuture(CF) - similar to callback promises in JavaScript. Main thread will not stop once CF is assigned 
+ 
+ Condtion class - similar to wait notify.
+ Create a codiytion on lock object
+ await and signal, signalAll methods
+ signal gives fairness - gives signal to thread waiitng for all
+ better than wait notify
+ 
+ 
+}
+=============================================
+	Completable Future
+	overcomes shortcomings of future get
+	say 10 flows, each flow has order, its payment and sending confirm to customer -> each dependant on prvius input.
+	so if we do a future.get() for getting order details for payment of first order, all other 9 order flows are also
+	blocked due to blocking nature of Future.get().
+	
+	This can be overcome by CompletableFture which allows async flows between twi seperate orders, but a synchronous flow withub
+	each order from beg to completion
+	
+	CF -> Future+CompletionStage Interface
+	
+
