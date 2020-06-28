@@ -1,0 +1,44 @@
+stack -> 10,20,6,6,8,2,11,21
+
+
+
+1......10, 2,4,6,8-t1
+
+1,3,5,////t2
+
+1->2->3->4->
+
+curr ->1
+
+temp -> null;
+
+a,b,c
+a-b
+b-c
+
+b-a
+c-b
+a->null
+
+temp->null;
+temp->a;
+temp->b
+
+Node A{
+int a;
+Node next -> temp;(null)
+}
+
+temp=null;
+prev;
+while(true)
+a,b,c
+prev = curr; // prev - a, b, c
+
+curr.next=temp; a->null, b -> a, c->b 
+temp = curr; temp ->b 
+curr= prev.next; current b;; curr = c, curr =
+
+
+
+
