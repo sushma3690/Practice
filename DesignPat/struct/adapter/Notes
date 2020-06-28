@@ -1,0 +1,9 @@
+Adapter pattern is used to adapat/ bring together two completely unrelated interfaces together
+
+Adapter (recognizeable by creational methods taking an instance of different abstract/interface type and returning an implementation of own/another abstract/interface type which decorates/overrides the given instance)
+java.util.Arrays#asList()
+java.util.Collections#list()
+java.util.Collections#enumeration()
+java.io.InputStreamReader(InputStream) (returns a Reader)
+java.io.OutputStreamWriter(OutputStream) (returns a Writer)
+javax.xml.bind.annotation.adapters.XmlAdapter#marshal() and #unmarshal()

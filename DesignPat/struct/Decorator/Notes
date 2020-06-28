@@ -1,0 +1,11 @@
+decoratr takes one object and returns diff obj, adding more features to it.
+
+- creates a wrapper around orig class. doesnt affect orig class/obj
+
+synchroziedMap(map);
+synchronizedList(list);
+
+All subclasses of java.io.InputStream, OutputStream, Reader and Writer have a constructor taking an instance of same type.
+java.util.Collections, the checkedXXX(), synchronizedXXX() and unmodifiableXXX() methods.
+javax.servlet.http.HttpServletRequestWrapper and HttpServletResponseWrapper
+javax.swing.JScrollPane

@@ -1,0 +1,75 @@
+Interpreter is usd whenevr u need to interpret the given input.
+for ex: google translate / Java compiler which intreprets the code line by line and
+converts it into byte code.
+API: Java.util.pattern
+
+Template: All the classes follow a set of path/ instructions provideed by their base abstcratc class
+this is nothing bjt defa behavior in the abstarct type
+
+Template method (recognizeable by behavioral methods which already have a "default" behaviour defined by an abstract type)
+
+All non-abstract methods of java.io.InputStream, java.io.OutputStream, java.io.Reader and java.io.Writer.
+All non-abstract methods of java.util.AbstractList, java.util.AbstractSet and java.util.AbstractMap.
+javax.servlet.http.HttpServlet, all the doXXX() methods by default sends a HTTP 405 "Method Not Allowed" error to the response. You're free to implement none or any of them.
+
+Usage examples: The Chain of Responsibility pattern isn’t a frequent guest in a Java program since it’s only relevant when code operates with chains of objects.
+
+One of the most popular use cases for the pattern is bubbling events to the parent components in GUI classes. Another notable use case is sequential access filters.
+
+Here are some examples of the pattern in core Java libraries:
+
+javax.servlet.Filter#doFilter()
+java.util.logging.Logger#log()
+Identification: The pattern is recognizable
+(recognizeable by behavioral methods which (indirectly) invokes the same method in another implementation of same abstract/interface type in a queue)
+
+Command -> you define a pttern/ interface and let other obj invoke it
+(recognizeable by behavioral methods in an abstract/interface type which invokes a method in an implementation of a different abstract/interface type which has been encapsulated by the command implementation during its creation)
+All implementations of java.lang.Runnable
+All implementations of javax.swing.Action
+
+interface order -> place order
+class application -> name, quantity; two methods make and sell
+MakeApp-> appl as constrct arg, implements interface ; placeOrder()->application.make
+SellApp-> appl as constrct arg, implements interface ; placeOrder()->application.sell
+Programmer class -> take order -> adds orders to list
+place order -> calls corresponding method
+main program -> create an instance of app; wrap it inside main app and sell app. then ad it
+to programmers take ord3r and then place order(order in order list, based on type of
+app, either sell or make is called)
+
+Iterator: to acccesss elements of a collection without knowing the underlying implementation
+details
+
+Mediator Pattern -> uss anthr interface/abstrat types instance and invokes it
+(recognizeable by behavioral methods taking an instance of different abstract/interface type (usually using the command pattern) which delegates/uses the given instance)
+example: executr service which takes runnable or callable
+
+
+Mememnto:::: recognized by behaviral method which internally change the state of the
+whole instance and can also be retrieved back later(orig instance)
+
+Date class - long internally
+
+Memento class - state attribute - gets and sets it
+Originator class - the one with a state and has method save state which creates memento
+and a getState method that takes memento obj as input and gets the state
+CareTaker class -> takes a list of all mementos that can be acceseed later
+
+Observer -> used when u want to notify or invoke anther objecs when current obj is changed.
+used in 1 to many realtions mainly
+
+State -> obj changes behavior based on its state
+
+State -> interface -> doAction(Context context);;;
+
+Context class -> State state; setSTate(State); get State;
+
+ApplicationStart imp,ements State;App Finish impements state;;;;
+
+Main: new Context; App s = new App; s.setState(state); Finish f = nww Finish; f.setState(state);
+
+javax.faces.lifecycle.LifeCycle#execute() (controlled by FacesServlet, the behaviour is dependent on current phase (state) of JSF lifecycle)
+
+
+

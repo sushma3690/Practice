@@ -1,0 +1,5 @@
+proxy class around an orig class so tat orig class is not miused. proxy class gives
+access to only select methods of orig class n not all
+
+java.rmi.*
+javax.ejb.EJB (explanation here)

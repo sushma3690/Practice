@@ -1,0 +1,13 @@
+Bridge pattern
+ ---- make an abstarct class and its implementation totally indepent of each oter using 
+ an interface
+ 
+ -- avoid bidning between an abstartcion and implementation, should each be extensible
+ 
+ -- hide implementation of abstratcion completely from clients
+ 
+ -- interface -> acts as a bridge between abstraction class n impl vlass
+ 
+ -- bp allows abstract n impl to b modified without impacting other
+ 
+ -- hide impl of abs completely from clients

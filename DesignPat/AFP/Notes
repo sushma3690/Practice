@@ -1,0 +1,12 @@
+1. When client is not reuqired to know the implementation details
+2. Need a system of objects taht needed to be used tgether
+3. run time value is needed to construct dependency
+
+
+DocumentBuilderFactory#newInstance() gives you a DocumentBuilder, which is a factory for Documents.
+
+So DocumentBuilderFactory is a factory that produces factories, or 
+in other words, an abstract factory. This is required because there are many implementations of DocumentBuilder 
+depending on JDK version and installed libraries.
+
+"lib/jaxp.properties" -> to determine which ipl to use

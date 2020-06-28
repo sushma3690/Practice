@@ -1,0 +1,16 @@
+Objects as part of tree structure to denote part-whole relationship
+Groups of objects are terated 1 way - an instacne fro this grp is also treated the same way as that
+of group
+when?:: represent part-holr. want client to treat grps of objs same
+
+Composite (recognizeable by behavioral methods taking an instance of same abstract/interface type into a tree structure)
+java.awt.Container#add(Component) (practically all over Swing thus)
+javax.faces.component.UIComponent#getChildren() (practically all over JSF UI thus)
+
+//swing ui components
+
+// iemployee -> getDetails
+
+//  employee implm iemployee
+
+// manager impl iemployee, also has list of employees // get details will return grp
