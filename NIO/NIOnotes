@@ -1,0 +1,35 @@
+Channels -> connects to source like files -> read write from sourve to biffer n vice versa - blocking as well non-blocking
+Buffer -> for diff data tyoes
+Selectors - provide non blocking IO capability
+A file interface - lock and memory map 
+
+Buffers -> all data transfer is thru buffers
+Channels -> main connection to source
+
+Buffers -> containers for fixed amt of data used by specific data tyoe. used by channels.
+capscity -> total elements it can store
+limit -> size from which to write or NOt read from a buffer
+pos -> index of next ele to be read or written
+mark -> like book mark so that on rset it goes back to mark index.
+allocateDirectBuffer -> direct jvm buffer - takes more time to create
+allocateBuffer  -> normal bufffer
+clear
+flip() -> readis position for reading limit=position and pos =0
+rewind() read with pos 0
+wrap() wrap given array in buffr
+
+Channel -> File Channel, Socket Channel, Datagram Channel
+
+async prog:::
+
+sspring webflux
+srvlet 3.1 - support async, u can send a request - thos request u can make it async and have a callback to fill the response
+from request to context later.
+ and then therad continues with otehrr activities.
+ 
+ advantages of reactive: less therads, effucuent CPU utkization, data locality and less context switches, scalability/high thruput
+ reactive - live source of values
+ 
+ disad: non intuitive, difficult to debug/trace, entire flow has to be async, hard to write tests/ CPU bound flows(?)
+ 
+ Looom - pnly 4 OS threads but millions of fibre threads
