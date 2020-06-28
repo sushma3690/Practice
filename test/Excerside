@@ -1,0 +1,39 @@
+Thread alternation
+1,
+2,
+3
+====
+
+4,
+5
+6
+====
+populate tree yiurself
+Tree -> 1 //null *     1 , 2 3
+       2   3//null
+     4  5 6   7
+   8  9 10 11 12 13 
+     ----again two kids ---
+     
+     print this in zigzag 
+     oolean left = trie
+     1|| 2 3 || 4 5 6 7 ||
+     1 -> // stack
+     2 3-?     stack  2, 3
+     3, 2// 1 stack, 1 queue
+     1 // 
+     2 3 
+     s1 -> 1//1
+     s1 -> 2 3 s2 -> 3 2
+     3 , 2 
+     s2 -> 3,2
+     //2 -> 4 5 ->s1 6, 7
+     s1 -> 4 5 6 7 -> 
+     
+     
+     
+     
+     
+   1// 
+ 
+   
