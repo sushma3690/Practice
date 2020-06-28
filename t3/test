@@ -1,0 +1,236 @@
+Base -> static print(){"in A"}
+
+Child extends Base(){
+
+static print(){"in B"}
+}
+
+Class X{
+
+A a = new B();//A parent, B child
+
+
+
+// deciding at runtime -> even if no method in B?
+
+// Method hiding -> static methods
+
+Class A{
+
+print(Obj a)
+
+print(String a) // 2
+
+print(String... a) // no obj
+
+print(SB a) // no
+
+print(String a,  String... b)
+print(String... a,  String b) //
+
+
+
+
+A a = new A();
+a.print("xyz"); // String
+a.print(null); // String // ambiguity..
+a.print()
+
+vararg...
+
+main(args...)
+
+}
+
+
+
+A{ //aggr - loose
+
+B b;
+
+}
+
+A{// compo - strong
+
+A(){
+B b
+}
+
+}
+
+
+1. A->B->C ;// multi level
+2. C extends A,B{
+
+
+}
+3. Dir -> being written to ;
+   reading ; polling for file and do something with file// 
+4. creational -> FP 
+
+SOLID
+
+S -> Single resposn
+O-> inheritence // Open for extension , closed for modif
+L -> Liskov Principle -> A->B;;;;; 
+I -> interface(logically grouped )
+D -> Depenency Inject
+{
+
+Employee e;///
+
+A// class
+
+}
+
+JVM -> 
+class file ; app->exten->boots; 
+
+//
+
+serial/parallel
+ concurrent *****   mark and sweep
+
+single threaded collectr//
+
+g1 algth -> 8
+
+jconsole + visual vm  -> gc
+
+final and priate// constructr//
+
+class{
+ final a
+ object ,,,list
+ (){}
+ private constructr;
+
+getList(){
+ 
+}
+
+getMap(){
+
+}
+}
+
+new() ->
+
+AutoClosable
+try(in; in1;){
+
+
+}
+
+try{
+
+throw new IOException
+}catch{IO| SQL|Excption}
+
+
+i1{
+
+default print
+}
+
+i2{
+
+Syntax error, insert "VariableDeclaratorId" to complete FormalParameter
+}
+class A  implements i1, i2{
+
+
+
+}
+
+AI
+
+(1)//   ftp(LBQ), stp(LBQ) - Diff??; queue- 1,2,3,4,5;
+
+cachle -> queue with 1 ele ->
+
+core pool size -> , keep alive time 60 s, 
+
+CPU1   CPU2
+
+Local   Local
+
+---- Shared Cache---
+
+serialization:::  transient
+
+LRU {
+
+LRU(5);
+
+
+}
+,3,2,4,5,6
+
+LFU -> (freq)
+
+/////LinkedHashSet -> 1,2,3,4, // LHMP<cust objs>
+
+al -> DLL// preferred
+
+abcdef
+len = 5  -> n
+i = 0;
+j = 4; len-1;
+
+while(i < j){ n/2
+ swap i and j;
+ i++; j--;
+}
+
+n+n 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,195 @@
+todo:
+
+1. varargs
+2. multiple inhertiance; tyoes
+3.// proper definitions
+4.//3. Dir -> being written to ;
+   reading ; polling for file and do something with file// 
+   // objective of all Design Pat Builder(String builder), adapter, Facade, Deco, Observer, Visitor; when n why;
+   // all 23
+   
+   DRY - design prin; resuing existing connec
+   
+   KISS - design prin; keep it simple n stp; as simple as possible
+   
+   JVM -> architecture
+   
+   gc -> Java 8 improve in GC - 8.2.0
+   
+   final - what else happens besides not being able to extend - why is it even needed on class?
+   
+   try out exc
+   
+   Autoclosable
+   
+   try multi catch
+   
+   enum -> internals -> cant be exteded by any
+   
+   how to solve diamond prob ->> 2 solutions 
+   
+   interfacename.super.defaultmethodname();
+   
+   collections:::
+   
+   disadv of using concurrent hashmap:::: 
+   
+   16 segments initially; 1 thread to seg 3, thread trying t read 3
+   
+   data inconsistency;;;;;
+   
+   Collections.SyncMap(obj)
+   
+   COWAL::
+   COAS::
+   
+   [1,2,3,4,5,6,7] -new
+   arr.add()
+   arr.
+   
+    [1,2,3,4,5,6] //flag - old
+    
+    new <- sync -> old //check
+    
+    i
+    
+[e1,e2,e3...]
+    Comparator<Employee> salaryComp = new Comparator(){
+    
+     int compare(Employee e1, Employee e){
+          
+     if(e1.getSalary() > e.getSalary()){
+         return 1;
+     }else if(e1.getSalary() < e.getSalary()){
+          return -1;
+     
+     }else{
+     
+         e1.getAge() > 
+     
+     
+     }
+     }
+    
+    
+    }
+    
+  Optional<Employee> e = emplList.stream().min(salaryComp);
+  
+  Optional
+  
+  uses 
+  
+  range rangeclosed etc in int stream
+  
+  t1,t2(enturely finish); then only next two threads // cl//
+  
+  count down latch, cyclic barrier
+  
+  10 numbers;
+  
+  i = 1;
+  
+  final Obj  obj = new Object
+  Lock l = new Rl();
+  Condition c = l.newCondiiton();
+  
+  print(k){
+  while(i < 10){
+  locl.lock();
+  if i%2 != k {
+  c.await();
+  }
+  system.out.println(i i + therads);
+  c.signalAll();
+  
+  }
+  i++
+  
+  print()
+  
+  
+  
+  }
+  
+  AtomicInteger i = new A(0)
+  lock;
+  print(){
+   lock.lock()
+   if(i%2 == )
+  syso(i.increment()) //1
+  
+  }
+  main method code ->
+  new Thread(()->{print()}).start();// Oddthread
+  
+  Thread.sleep(10)
+  
+  new Thread(()->{print()}).; //EvenThread
+  
+  iterative;;;; recursive
+  employee -> 4 cols, empnum, empname, deptno, sal, eid
+  
+  //emp -> max sal in each dept
+  
+  select empname, deptno from employee where sal in (select max(sal) from employee)  ;
+  
+  2 cols -> eid, name
+  1, abc
+  2, def
+  3, lll
+  
+  
+  pers  2 cols   eid, ename
+                 1, abc,
+                 2, def,
+                 3, lll
+                 4, mmm
+  
+   selecy * from emp union person /// 1,2,3
+   select * from emp unionall person // 
+   select * from emp intersect person///// 
+   
+   
+   spring :
+   
+   @Autowire , @Inject, @Resource
+   //
+   @Component(), @Service, @Controller, @RestControll
+   Stereotype annotations -> 4, @Repostory, @Request(//)
+   @Path, @RquestB
+   
+   @Profile -?
+   
+    
+   A{
+   
+   getConnection(); // init-method=""; (pre processors) /// beans
+   
+   xml(initMethd), inrerface appraoch - disposable Bean, Init Bean
+   afterProps Set
+   DispsableBean -> destroy
+   
+    , annotation appraoch
+   
+   destroy();
+   
+   annotaions -> post construct, pre destroy
+   
+   @retryable - statless/stateful -> params - db fails - n number of times
+   
+   spring bean life cycle 
+   
+   when setters getters, n our own methods;;;/// 
+   
+   lazy approaach
+   
+   }
+   
+   
+   
+   
+   
+   
+   
+   
