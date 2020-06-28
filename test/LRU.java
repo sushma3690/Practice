@@ -1,60 +1,77 @@
-package test;
-
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.Set;
 
-/***
- * capacity=3
- * 2,3,4 -> remove 1 // simple add, where we need to check for cap and delete the firdt and add
- * else add
- * 
- * 3,1,4 -> accessed 1 and added 4, so 2 goes
- * @author karsushm
- *
- */
-class Node{
-	int data;
-	Node next;
-	Node prev;
-}
 public class LRU {
-	private final int capacity;
-	Node head; //-> //useful fr removing oldies
-	Node tail;
-	//1,2,3
-	//1 -> node1->head 
-	// 2->node -2
-	 //new node, key -> old node..//
-	//getKey() -> old ->Node;;;; OldNode.prev.next=NewNode; NewNode.next=oldNode.Next
-	HashMap<Integer,Node> mp;
-	/**
-	 * 1, Node1
-	 * 2, Node2
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @param cap
-	 */
-	//1<--2-->3
-	 //--->1<--
-	LRU(int cap){
-		this.capacity = cap;
-		mp = new HashMap<>();
-	}
 	
-	
-	public void add(int i) {
-		
-		// if map contains key, do the node thingy
-		// if map doesnt contain key -> 
-
-	}
-	
-	public void get(int i) {
-		
-	}
-	
+	Set<Integer> cache; 
+    int capacity; 
+    
+  
+    public LRU(int capacity) 
+    { 
+        this.cache = new LinkedHashSet<Integer>(capacity); 
+        this.capacity = capacity; 
+    } 
+  
+    // This function returns false if key is not 
+    // present in cache. Else it moves the key to 
+    // front by first removing it and then adding 
+    // it, and returns true. 
+    public boolean get(int key) 
+    { 
+        if (!cache.contains(key)) 
+            return false; 
+        cache.remove(key); 
+        cache.add(key); 
+        return true; 
+    } 
+  
+    /* Refers key x with in the LRU cache */
+    public void refer(int key) 
+    {         
+        if (get(key) == false) 
+           put(key); 
+    } 
+  
+    // display contents of cache 
+    public void display() 
+    { 
+        Iterator<Integer> itr = cache.iterator(); 
+        while (itr.hasNext()) { 
+            System.out.print(itr.next() + " "); 
+        } 
+    } 
+      
+    public void put(int key) 
+    { 
+        // If already present, then  
+        // remove it first. Note that 
+        // we are going to add later 
+        if (cache.contains(key))  
+            cache.remove(key); 
+  
+        // If cache size is full, remove the least 
+        // recently used. 
+        else if (cache.size() == capacity) { 
+            int firstKey = cache.iterator().next(); 
+            cache.remove(firstKey); 
+        } 
+  
+        cache.add(key); 
+        System.out.println("cache for every put"+cache);
+    } 
+      
+    public static void main(String[] args) 
+    { 
+        LRU ca = new LRU(4); 
+        ca.refer(1); 
+        ca.refer(2); 
+        ca.refer(3); 
+        ca.refer(1); 
+        ca.refer(4); 
+        ca.refer(5); 
+        ca.display(); 
+    } 
 
 }
