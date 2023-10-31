@@ -7,6 +7,12 @@ javax.lang.model.element.Element and ElementVisitor
 javax.lang.model.type.TypeMirror and TypeVisitor
 java.nio.file.FileVisitor and SimpleFileVisitor
 javax.faces.component.visit.VisitContext and VisitCallback
+
+Visitor pattern is used when we have to perform an operation on a group of similar kind of Objects. 
+With the help of visitor pattern, we can move the operational logic from the objects to another class. 
+For example, think of a Shopping cart where we can add different type of items (Elements).
+
+The purpose of a Visitor pattern is to define a new operation without introducing the modifications to an existing object structure.
  * @author karsushm
  *
  */
